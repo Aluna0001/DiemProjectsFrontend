@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Project</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body
+    style="
+      background-color: var(--color-bg-dark);
+      color: var(--color-text-primary);
+    ">
+    <div class="create-project-form">
+      <h1>Create a New Project</h1>
+      <form id="createProjectForm">
+        <label for="projectTitle">Title:</label>
+        <input
+          type="text"
+          id="projectTitle"
+          name="projectTitle"
+          placeholder="Enter project title"
+          required />
+        <label for="projectDescription">Description:</label>
+        <textarea
+          id="projectDescription"
+          name="projectDescription"
+          placeholder="Enter project description"
+          required></textarea>
+        <label for="budget">Budget:</label>
+        <input
+          type="number"
+          id="budget"
+          name="budget"
+          placeholder="Enter project budget"
+          required />
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required />
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required />
+        <button type="submit">Create Project</button>
+      </form>
+    </div>
+    <script src="../js/create-project.js"></script>
+  </body>
+</html>
