@@ -65,6 +65,25 @@ body {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+.view-projects-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.view-projects-button:hover {
+  background-color: var(--color-ui-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* Project List */
 .project-list {
   padding: 20px;

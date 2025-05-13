@@ -1,17 +1,19 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const projectList = document.getElementById("projectList");
+document.addEventListener("DOMContentLoaded", () => {
+  const projectListContainer = document.getElementById(
+    "project-list-container"
+  );
 
-  try {
-    const response = await fetch("http://localhost:8080/projects");
-    const projects = await response.json();
-
-    projects.forEach((project) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `${project.projectTitle} - ${project.projectDescription}`;
-      projectList.appendChild(listItem);
+  // Fetch projects from the backend
+  fetch("http://localhost:8080/projects")
+    .then((response) => response.json())
+    .then((projects) => {
+      projects.forEach((project) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${project.projectTitle} - ${project.projectDescription}`;
+        projectListContainer.appendChild(listItem);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching projects:", error);
     });
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    projectList.textContent = "Failed to load projects.";
-  }
 });
