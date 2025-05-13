@@ -1,30 +1,162 @@
+/* Color Variables */
+:root {
+  --color-bg-dark: #0e0e0e;
+  --color-bg-light: #e0e0e0; /* Slightly darker grey for form background */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #afafaf;
+  --color-accent: #ff8c00; /* Orange for buttons */
+  --color-ui-dark: #1c1c1c;
+}
+
+/* General Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+body {
+  font-family: "One Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Landing Page */
 .landing-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
+  background: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  text-align: center;
 }
 
 .landing-page h1 {
-  font-size: 2.5rem;
-  color: #333;
+  font-size: 3rem;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .create-project-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #007bff;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-accent);
   border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-project-button:hover {
+  background-color: var(--color-ui-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Project List */
+.project-list {
+  padding: 20px;
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: var(--color-bg-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-list h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--color-accent);
+  text-align: center;
+}
+
+.project-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.project-list li {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-ui-dark);
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.project-list li:hover {
+  background-color: var(--color-text-secondary);
+}
+
+/* Create Project Form */
+.create-project-form {
+  padding: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: var(--color-bg-light); /* Slightly darker grey background */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+}
+
+.create-project-form h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--color-ui-dark); /* Dark grey text for better contrast */
+  text-align: center;
+}
+
+.create-project-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-project-form label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: var(--color-text-secondary); /* Light grey text */
+}
+
+.create-project-form input,
+.create-project-form textarea,
+.create-project-form button {
+  font-size: 1rem;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--color-text-secondary); /* Light grey border */
+  border-radius: 5px;
+  background-color: var(
+    --color-bg-light
+  ); /* Slightly darker grey input background */
+  color: var(--color-ui-dark); /* Dark grey text */
+}
+
+.create-project-form input:focus,
+.create-project-form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent); /* Orange for focus */
+  box-shadow: 0 0 5px rgba(255, 140, 0, 0.5); /* Orange glow */
+}
+
+.create-project-form button {
+  background-color: var(--color-accent); /* Orange button */
+  color: var(--color-text-primary); /* White text */
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.create-project-button:hover {
-  background-color: #0056b3;
+.create-project-form button:hover {
+  background-color: var(--color-ui-dark); /* Dark grey on hover */
 }
