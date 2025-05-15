@@ -1,0 +1,39 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("createSubprojectForm");
+    const parentProjectId = localStorage.getItem("parentProjectId");
+
+    if (!parentProjectId) {
+        alert("No parent project selected.");
+        window.location.href = "project-list.html";
+        return;
+    }
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const newSubproject = {
+            subProjectTitle: document.getElementById("subprojectTitle").value,
+            subProjectDescription: document.getElementById("subprojectDescription").value,
+        };
+
+        fetch(`http://localhost:8080/projects/${parentProjectId}/subprojects`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newSubproject),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Subproject created successfully.");
+                    window.location.href = "subproject-list.html";
+                } else {
+                    alert("Failed to create subproject.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error creating subproject:", error);
+                alert("An error occurred while creating the subproject.");
+            });
+    });
+});

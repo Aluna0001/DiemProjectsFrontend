@@ -82,9 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
         editIcon.addEventListener("click", () => {
           loadProjectIntoForm(project); // Load project data into the form
         });
+        const viewSubBtn = document.createElement("span");
+        viewSubBtn.textContent = "📁"; // eller "🔽" eller "Subprojects"
+        viewSubBtn.style.cursor = "pointer";
+        viewSubBtn.style.marginLeft = "10px";
+        viewSubBtn.title = "View Subprojects";
+        viewSubBtn.addEventListener("click", () => {
+          localStorage.setItem("parentProjectId", project.id);
+          location.href = "subproject-list.html";
+        });
 
         listItem.appendChild(deleteIcon);
         listItem.appendChild(editIcon);
+        listItem.appendChild(viewSubBtn);
         projectListContainer.appendChild(listItem);
       });
     })
@@ -92,3 +102,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching projects:", error);
     });
 });
+
