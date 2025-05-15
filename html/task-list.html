@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="project-list">
+      <h1>All Tasks</h1>
+      <button
+        class="create-project-button"
+        onclick="location.href='create-task.html'">
+        Create New Task
+      </button>
+      <button
+        class="back-to-landing-button"
+        onclick="window.location.href='subproject-list.html'">
+        Back To SubProjects
+      </button>
 
-</body>
+      <ul id="task-list-container">
+        <!-- Tasks will be dynamically loaded here -->
+      </ul>
+    </div>
+    <script src="../js/task-list.js"></script>
+  </body>
 </html>

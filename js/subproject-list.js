@@ -86,9 +86,22 @@ document.addEventListener("DOMContentLoaded", () => {
           location.href = "edit-subproject.html"; // Redirect to edit subproject page
         });
 
+        // Create a button to access tasks
+        const taskButton = document.createElement("button");
+        taskButton.textContent = "View Tasks";
+        taskButton.className = "action-button";
+        taskButton.title = "View Tasks for Subproject";
+
+        // Add click event to navigate to tasks
+        taskButton.addEventListener("click", () => {
+          localStorage.setItem("subProjectId", subproject.id);
+          location.href = "task-list.html"; // Redirect to task list page
+        });
+
         // Append buttons to the button container
         buttonContainer.appendChild(deleteButton);
         buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(taskButton);
 
         // Append the button container to the list item
         listItem.appendChild(buttonContainer);

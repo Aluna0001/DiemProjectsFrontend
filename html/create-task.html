@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Task</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="create-project-form">
+      <h1>Create a New Task</h1>
+      <form id="createTaskForm">
+        <label for="taskTitle">Title:</label>
+        <input
+          type="text"
+          id="taskTitle"
+          name="taskTitle"
+          placeholder="Enter task title"
+          required />
+        <label for="taskDescription">Description:</label>
+        <textarea
+          id="taskDescription"
+          name="taskDescription"
+          placeholder="Enter task description"
+          required></textarea>
+        <button type="submit" class="create-project-button">Create Task</button>
+        <button
+          class="back-to-landing-button"
+          onclick="window.location.href='task-list.html'">
+          Back to Tasks
+        </button>
+      </form>
+    </div>
+    <script src="../js/create-task.js"></script>
+  </body>
+</html>

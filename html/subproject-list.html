@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SubProject List</title>
-  <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-<div class="project-list">
-  <h1>All SubProjects</h1>
-  <button
-          class="create-project-button"
-          onclick="location.href='create-subproject.html'">
-    Create New SubProject
-  </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SubProject List</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="project-list">
+      <h1>All SubProjects</h1>
+      <button
+        class="create-project-button"
+        onclick="location.href='create-subproject.html'">
+        Create New SubProject
+      </button>
 
-  <button class="back-to-landing-button" onclick="window.location.href='project-list.html'">Back To Projects
-  </button>
+      <button
+        class="back-to-landing-button"
+        onclick="window.location.href='project-list.html'">
+        Back To Projects
+      </button>
 
-  <ul id="subproject-list-container">
-    <!-- Projects will be dynamically loaded here -->
-  </ul>
-</div>
-<script src="../js/subproject-list.js"></script>
-</body>
+      <ul id="subproject-list-container">
+        <!-- Projects will be dynamically loaded here -->
+      </ul>
+      <button
+        class="access-tasks-button"
+        onclick="window.location.href='tasks.html'">
+        Access Tasks
+      </button>
+    </div>
+    <script src="../js/subproject-list.js"></script>
+  </body>
 </html>
