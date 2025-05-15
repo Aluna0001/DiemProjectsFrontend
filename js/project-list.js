@@ -39,15 +39,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const listItem = document.createElement("li");
         listItem.textContent = `${project.projectTitle} - ${project.projectDescription}`;
 
-        // Create delete icon
-        const deleteIcon = document.createElement("span");
-        deleteIcon.textContent = "🗑️"; // Unicode trash can icon
-        deleteIcon.style.cursor = "pointer";
-        deleteIcon.style.marginLeft = "10px";
-        deleteIcon.title = "Delete Project";
+        // Create a container for the buttons
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "action-buttons";
+
+        // Create delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "action-button";
+        deleteButton.title = "Delete Project";
 
         // Add click event to delete the project
-        deleteIcon.addEventListener("click", () => {
+        deleteButton.addEventListener("click", () => {
           if (
             confirm(
               `Are you sure you want to delete "${project.projectTitle}"?`
@@ -71,30 +74,36 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // Create edit icon
-        const editIcon = document.createElement("span");
-        editIcon.textContent = "✏️"; // Unicode pencil icon
-        editIcon.style.cursor = "pointer";
-        editIcon.style.marginLeft = "10px";
-        editIcon.title = "Edit Project";
+        // Create edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "action-button";
+        editButton.title = "Edit Project";
 
         // Add click event to edit the project
-        editIcon.addEventListener("click", () => {
+        editButton.addEventListener("click", () => {
           loadProjectIntoForm(project); // Load project data into the form
         });
-        const viewSubBtn = document.createElement("span");
-        viewSubBtn.textContent = "📁"; // eller "🔽" eller "Subprojects"
-        viewSubBtn.style.cursor = "pointer";
-        viewSubBtn.style.marginLeft = "10px";
-        viewSubBtn.title = "View Subprojects";
-        viewSubBtn.addEventListener("click", () => {
+
+        // Create "go to subproject" button
+        const subprojectButton = document.createElement("button");
+        subprojectButton.textContent = "Go to Subprojects";
+        subprojectButton.className = "action-button";
+        subprojectButton.title = "View Subprojects";
+
+        // Add click event to navigate to subprojects
+        subprojectButton.addEventListener("click", () => {
           localStorage.setItem("parentProjectId", project.id);
           location.href = "subproject-list.html";
         });
 
-        listItem.appendChild(deleteIcon);
-        listItem.appendChild(editIcon);
-        listItem.appendChild(viewSubBtn);
+        // Append buttons to the button container
+        buttonContainer.appendChild(deleteButton);
+        buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(subprojectButton);
+
+        // Append the button container to the list item
+        listItem.appendChild(buttonContainer);
         projectListContainer.appendChild(listItem);
       });
     })
@@ -102,4 +111,3 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching projects:", error);
     });
 });
-

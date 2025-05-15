@@ -1,94 +1,101 @@
 function updateSubProject(id, updatedData) {
-    fetch(`http://localhost:8080/subprojects/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
+  fetch(`http://localhost:8080/subprojects/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("SubProject updated successfully.");
+        location.href = "subproject-list.html"; // Redirect back to the project list
+      } else {
+        alert("Failed to update the subproject.");
+      }
     })
-        .then((response) => {
-            if (response.ok) {
-                alert("SubProject updated successfully.");
-                location.href = "subproject-list.html"; // Redirect back to the project list
-            } else {
-                alert("Failed to update the subproject.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error updating subproject:", error);
-            alert("An error occurred while updating the subproject.");
-        });
+    .catch((error) => {
+      console.error("Error updating subproject:", error);
+      alert("An error occurred while updating the subproject.");
+    });
 }
 
 function loadProjectIntoForm(subproject) {
-    // Save project data to localStorage to pass it to the create-project page
-    localStorage.setItem("editSubProject", JSON.stringify(subproject));
-    location.href = "create-subproject.html"; // Redirect to the create-project page
+  // Save project data to localStorage to pass it to the create-project page
+  localStorage.setItem("editSubProject", JSON.stringify(subproject));
+  location.href = "create-subproject.html"; // Redirect to the create-project page
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const subprojectListContainer = document.getElementById(
-        "subproject-list-container"
-    );
+  const subprojectListContainer = document.getElementById(
+    "subproject-list-container"
+  );
 
-    // Fetch projects from the backend
-    fetch("http://localhost:8080/subprojects")
-        .then((response) => response.json())
-        .then((subprojects) => {
-            subprojects.forEach((subproject) => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${subproject.subProjectTitle} - ${subproject.subProjectDescription}`;
+  // Fetch subprojects from the backend
+  fetch("http://localhost:8080/subprojects")
+    .then((response) => response.json())
+    .then((subprojects) => {
+      subprojects.forEach((subproject) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${subproject.subprojectTitle} - ${subproject.subprojectDescription}`;
 
-                // Create delete icon
-                const deleteIcon = document.createElement("span");
-                deleteIcon.textContent = "🗑️"; // Unicode trash can icon
-                deleteIcon.style.cursor = "pointer";
-                deleteIcon.style.marginLeft = "10px";
-                deleteIcon.title = "Delete Project";
+        // Create a container for the buttons
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "action-buttons";
 
-                // Add click event to delete the project
-                deleteIcon.addEventListener("click", () => {
-                    if (
-                        confirm(
-                            `Are you sure you want to delete "${subproject.subprojectTitle}"?`
-                        )
-                    ) {
-                        fetch(`http://localhost:8080/subprojects/${subproject.id}`, {
-                            method: "DELETE",
-                        })
-                            .then((response) => {
-                                if (response.ok) {
-                                    listItem.remove(); // Remove the project from the list
-                                    alert("Project deleted successfully.");
-                                } else {
-                                    alert("Failed to delete the project.");
-                                }
-                            })
-                            .catch((error) => {
-                                console.error("Error deleting project:", error);
-                                alert("An error occurred while deleting the project.");
-                            });
-                    }
-                });
+        // Create delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "action-button";
+        deleteButton.title = "Delete Subproject";
 
-                // Create edit icon
-                const editIcon = document.createElement("span");
-                editIcon.textContent = "✏️"; // Unicode pencil icon
-                editIcon.style.cursor = "pointer";
-                editIcon.style.marginLeft = "10px";
-                editIcon.title = "Edit Project";
-
-                // Add click event to edit the project
-                editIcon.addEventListener("click", () => {
-                    loadProjectIntoForm(subproject); // Load project data into the form
-                });
-
-                listItem.appendChild(deleteIcon);
-                listItem.appendChild(editIcon);
-                subprojectListContainer.appendChild(listItem);
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching projects:", error);
+        // Add click event to delete the subproject
+        deleteButton.addEventListener("click", () => {
+          if (
+            confirm(
+              `Are you sure you want to delete "${subproject.subprojectTitle}"?`
+            )
+          ) {
+            fetch(`http://localhost:8080/subprojects/${subproject.id}`, {
+              method: "DELETE",
+            })
+              .then((response) => {
+                if (response.ok) {
+                  listItem.remove(); // Remove the subproject from the list
+                  alert("Subproject deleted successfully.");
+                } else {
+                  alert("Failed to delete the subproject.");
+                }
+              })
+              .catch((error) => {
+                console.error("Error deleting subproject:", error);
+                alert("An error occurred while deleting the subproject.");
+              });
+          }
         });
+
+        // Create edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "action-button";
+        editButton.title = "Edit Subproject";
+
+        // Add click event to edit the subproject
+        editButton.addEventListener("click", () => {
+          localStorage.setItem("editSubproject", JSON.stringify(subproject));
+          location.href = "edit-subproject.html"; // Redirect to edit subproject page
+        });
+
+        // Append buttons to the button container
+        buttonContainer.appendChild(deleteButton);
+        buttonContainer.appendChild(editButton);
+
+        // Append the button container to the list item
+        listItem.appendChild(buttonContainer);
+        subprojectListContainer.appendChild(listItem);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching subprojects:", error);
+    });
 });
