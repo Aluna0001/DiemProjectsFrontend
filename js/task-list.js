@@ -1,60 +1,69 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const taskListContainer = document.getElementById("task-list-container");
-  const subProjectId = localStorage.getItem("subProjectId");
 
-  // Fetch tasks for the selected subproject
+document.addEventListener("DOMContentLoaded", () => {
+  const subProjectId = localStorage.getItem("subProjectId");
+  const taskListContainer = document.getElementById("task-list-container");
+
+  if (!subProjectId) {
+    alert("No subproject selected.");
+    window.location.href = "subproject-list.html";
+    return;
+  }
+
   fetch(`http://localhost:8080/subprojects/${subProjectId}/tasks`)
-    .then((response) => response.json())
-    .then((tasks) => {
-      tasks.forEach((task) => {
-        const listItem = document.createElement("li");
-        listItem.className = "task-item";
-        listItem.innerHTML = `
-          <div>
-            <strong>${task.taskTitle}</strong>
-            <p>${task.taskDescription}</p>
-          </div>
-          <div class="action-buttons">
-            <button class="action-button" title="Edit Task">Edit</button>
-            <button class="action-button" title="Delete Task">Delete</button>
-          </div>
+      .then(response => response.json())
+      .then(tasks => {
+        tasks.forEach(task => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+          <strong>${task.title}</strong> - ${task.description}<br>
+          <em>Status:</em> ${task.status}<br>
+          <em>Time:</em> Est. ${task.estimatedTime}h / Spent ${task.spentTime}h<br>
+          <em>Cost:</em> Est. $${task.estimatedCost} / Spent $${task.spentCost}
         `;
 
-        // Add event listeners for edit and delete buttons
-        const editButton = listItem.querySelector("button[title='Edit Task']");
-        const deleteButton = listItem.querySelector(
-          "button[title='Delete Task']"
-        );
+          // Create button container
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "action-buttons";
 
-        editButton.addEventListener("click", () => {
-          localStorage.setItem("editTask", JSON.stringify(task));
-          location.href = "create-task.html";
-        });
+          // Edit button
+          const editButton = document.createElement("button");
+          editButton.textContent = "Edit";
+          editButton.className = "action-button";
+          editButton.addEventListener("click", () => {
+            localStorage.setItem("editTask", JSON.stringify(task));
+            location.href = "create-task.html";
+          });
 
-        deleteButton.addEventListener("click", () => {
-          if (confirm(`Are you sure you want to delete "${task.taskTitle}"?`)) {
-            fetch(`http://localhost:8080/tasks/${task.id}`, {
-              method: "DELETE",
-            })
-              .then((response) => {
-                if (response.ok) {
-                  listItem.remove();
-                  alert("Task deleted successfully.");
-                } else {
-                  alert("Failed to delete the task.");
-                }
+          // Delete button
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.className = "action-button";
+          deleteButton.addEventListener("click", () => {
+            if (confirm(`Delete task "${task.title}"?`)) {
+              fetch(`http://localhost:8080/tasks/${task.id}`, {
+                method: "DELETE",
               })
-              .catch((error) => {
-                console.error("Error deleting task:", error);
-                alert("An error occurred while deleting the task.");
-              });
-          }
-        });
+                  .then(res => {
+                    if (res.ok) {
+                      listItem.remove();
+                      alert("Task deleted.");
+                    } else {
+                      alert("Failed to delete task.");
+                    }
+                  })
+                  .catch(error => {
+                    console.error("Error deleting task:", error);
+                  });
+            }
+          });
 
-        taskListContainer.appendChild(listItem);
+          buttonContainer.appendChild(editButton);
+          buttonContainer.appendChild(deleteButton);
+          listItem.appendChild(buttonContainer);
+          taskListContainer.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error("Error loading tasks:", error);
       });
-    })
-    .catch((error) => {
-      console.error("Error fetching tasks:", error);
-    });
 });

@@ -5,19 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (editTaskData) {
     const task = JSON.parse(editTaskData);
+    document.getElementById("formTitle").textContent = "Edit Task";
 
-    // Populate the form with task data
-    document.getElementById("taskTitle").value = task.taskTitle;
-    document.getElementById("taskDescription").value = task.taskDescription;
+    // Populate form
+    document.getElementById("taskTitle").value = task.title;
+    document.getElementById("taskDescription").value = task.description;
+    document.getElementById("estimatedTime").value = task.estimatedTime;
+    document.getElementById("spentTime").value = task.spentTime;
+    document.getElementById("estimatedCost").value = task.estimatedCost;
+    document.getElementById("spentCost").value = task.spentCost;
+    document.getElementById("status").value = task.status;
 
-    // Update the form's submit event to handle editing
-    taskForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+    // Submit handler for update
+    taskForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-      const updatedTask = {
-        taskTitle: document.getElementById("taskTitle").value,
-        taskDescription: document.getElementById("taskDescription").value,
-      };
+      const updatedTask = getFormData();
 
       fetch(`http://localhost:8080/tasks/${task.id}`, {
         method: "PUT",
@@ -26,30 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify(updatedTask),
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("Task updated successfully.");
-            location.href = "task-list.html";
-          } else {
-            alert("Failed to update the task.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error updating task:", error);
-          alert("An error occurred while updating the task.");
-        });
+          .then((res) => {
+            if (res.ok) {
+              alert("Task updated.");
+              location.href = "task-list.html";
+            } else {
+              alert("Failed to update task.");
+            }
+          })
+          .catch(console.error);
 
       localStorage.removeItem("editTask");
     });
   } else {
-    // Handle creating a new task
-    taskForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+    // Submit handler for create
+    taskForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-      const newTask = {
-        taskTitle: document.getElementById("taskTitle").value,
-        taskDescription: document.getElementById("taskDescription").value,
-      };
+      const newTask = getFormData();
 
       fetch(`http://localhost:8080/subprojects/${subProjectId}/tasks`, {
         method: "POST",
@@ -58,18 +55,27 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify(newTask),
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("Task created successfully.");
-            location.href = "task-list.html";
-          } else {
-            alert("Failed to create the task.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error creating task:", error);
-          alert("An error occurred while creating the task.");
-        });
+          .then((res) => {
+            if (res.ok) {
+              alert("Task created.");
+              location.href = "task-list.html";
+            } else {
+              alert("Failed to create task.");
+            }
+          })
+          .catch(console.error);
     });
+  }
+
+  function getFormData() {
+    return {
+      title: document.getElementById("taskTitle").value,
+      description: document.getElementById("taskDescription").value,
+      estimatedTime: parseFloat(document.getElementById("estimatedTime").value),
+      spentTime: parseFloat(document.getElementById("spentTime").value),
+      estimatedCost: parseFloat(document.getElementById("estimatedCost").value),
+      spentCost: parseFloat(document.getElementById("spentCost").value),
+      status: document.getElementById("status").value,
+    };
   }
 });

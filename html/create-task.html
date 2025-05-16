@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Task</title>
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
-  <body>
-    <div class="create-project-form">
-      <h1>Create a New Task</h1>
-      <form id="createTaskForm">
-        <label for="taskTitle">Title:</label>
-        <input
-          type="text"
-          id="taskTitle"
-          name="taskTitle"
-          placeholder="Enter task title"
-          required />
-        <label for="taskDescription">Description:</label>
-        <textarea
-          id="taskDescription"
-          name="taskDescription"
-          placeholder="Enter task description"
-          required></textarea>
-        <button type="submit" class="create-project-button">Create Task</button>
-        <button
-          class="back-to-landing-button"
-          onclick="window.location.href='task-list.html'">
-          Back to Tasks
-        </button>
-      </form>
-    </div>
-    <script src="../js/create-task.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Create or Edit Task</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="create-project-form">
+  <h1 id="formTitle">Create a New Task</h1>
+  <form id="createTaskForm">
+    <label for="taskTitle">Title:</label>
+    <input type="text" id="taskTitle" required />
+
+    <label for="taskDescription">Description:</label>
+    <textarea id="taskDescription" required></textarea>
+
+    <label for="estimatedTime">Estimated Time (hrs):</label>
+    <input type="number" step="0.1" id="estimatedTime" required />
+
+    <label for="spentTime">Spent Time (hrs):</label>
+    <input type="number" step="0.1" id="spentTime" required />
+
+    <label for="estimatedCost">Estimated Cost:</label>
+    <input type="number" step="0.01" id="estimatedCost" required />
+
+    <label for="spentCost">Spent Cost:</label>
+    <input type="number" step="0.01" id="spentCost" required />
+
+    <label for="status">Status:</label>
+    <select id="status" required>
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+
+    <button type="submit">Save Task</button>
+    <button type="button" onclick="window.location.href='task-list.html'">Cancel</button>
+  </form>
+</div>
+<script src="../js/create-task.js"></script>
+</body>
 </html>
