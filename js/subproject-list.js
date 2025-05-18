@@ -22,7 +22,7 @@ function updateSubProject(id, updatedData) {
 
 function loadProjectIntoForm(subproject) {
   // Save project data to localStorage to pass it to the create-project page
-  localStorage.setItem("editSubProject", JSON.stringify(subproject));
+  localStorage.setItem("editSubproject", JSON.stringify(subproject));
   location.href = "create-subproject.html"; // Redirect to the create-project page
 }
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((subprojects) => {
       subprojects.forEach((subproject) => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${subproject.subprojectTitle} - ${subproject.subprojectDescription}`;
+        listItem.textContent = `${subproject.subProjectTitle} - ${subproject.subProjectDescription}`;
 
         // Create a container for the buttons
         const buttonContainer = document.createElement("div");
@@ -83,8 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add click event to edit the subproject
         editButton.addEventListener("click", () => {
           localStorage.setItem("editSubproject", JSON.stringify(subproject));
-          location.href = "edit-subproject.html"; // Redirect to edit subproject page
+          location.href = "create-subproject.html"; // Redirect to edit subproject page
         });
+
+        /*
+        // Edit button
+        // Create edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "action-button";
+        editButton.title = "Edit Subproject";
+
+        // Add click event to edit the project
+        editButton.addEventListener("click", () => {
+          loadProjectIntoForm(subproject); // Load project data into the form
+        });
+        */
 
         // Create a button to access tasks
         const taskButton = document.createElement("button");
