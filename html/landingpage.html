@@ -6,8 +6,14 @@
     <title>Landing Page</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
-  <img src="../css/logo.png" alt="Company Logo" class="logo">
+  <img src="../css/logo.png" alt="Company Logo" class="logo" />
   <body>
+    <script>
+      // Redirect to login if not authenticated
+      if (!localStorage.getItem("token")) {
+        window.location.href = "login.html";
+      }
+    </script>
     <div class="landing-page">
       <h1 style="color: white">Welcome to Project Manager</h1>
       <button
@@ -20,6 +26,13 @@
         class="view-projects-button"
         onclick="window.location.href='project-list.html'">
         View Projects
+      </button>
+      <button
+        class="back-to-landing-button"
+        id="logoutButton"
+        style="margin-top: 20px"
+        onclick="localStorage.removeItem('token');window.location.href='login.html';">
+        Logout
       </button>
     </div>
     <script src="../js/landingpage.js"></script>
