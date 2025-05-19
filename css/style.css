@@ -274,3 +274,13 @@ body {
   max-width: 150px;
   height: auto;
 }
+
+/* Login Message */
+#create-project-form #loginMessage,
+#createProjectForm #loginMessage,
+#createSubprojectForm #loginMessage,
+#loginMessage {
+  font-weight: 600;
+  margin-top: 10px;
+  text-align: center;
+}

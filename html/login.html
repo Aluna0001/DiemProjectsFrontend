@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body style="background-color: var(--color-bg-dark)">
+    <!-- This file uses plain HTML, CSS, and JS. No React is present. -->
+    <div
+      class="create-project-form"
+      style="max-width: 350px; margin-top: 100px">
+      <h1 style="text-align: center">Login</h1>
+      <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required />
+
+        <button type="submit" style="margin-top: 10px">Login</button>
+      </form>
+      <div id="loginMessage" style="margin-top: 15px; text-align: center"></div>
+    </div>
+    <script src="../js/login.js"></script>
+  </body>
+</html>
