@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const subProjectId = localStorage.getItem("subProjectId");
+  const subProjectName = localStorage.getItem("subProjectName");
+  const taskTitleElement = document.getElementById("taskTitle");
   const taskListContainer = document.getElementById("task-list-container");
+
+  if (subProjectName && taskTitleElement) {
+    taskTitleElement.textContent = `Tasks for Subproject: ${subProjectName}`;
+  }
 
   if (!subProjectId) {
     alert("No subproject selected.");
