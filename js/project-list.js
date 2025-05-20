@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add click event to navigate to subprojects
         subprojectButton.addEventListener("click", () => {
           localStorage.setItem("parentProjectId", project.id);
+          localStorage.setItem("parentProjectName", project.projectTitle); //DENNE LINJE ER VIGTIG til at hente navnet på project til subproject
           location.href = "subproject-list.html";
         });
 
