@@ -19,13 +19,13 @@ function updateSubProject(id, updatedData) {
       alert("An error occurred while updating the subproject.");
     });
 }
-
+/*
 function loadProjectIntoForm(subproject) {
   // Save project data to localStorage to pass it to the create-project page
   localStorage.setItem("editSubproject", JSON.stringify(subproject));
   location.href = "create-subproject.html"; // Redirect to the create-project page
 }
-
+*/
 document.addEventListener("DOMContentLoaded", () => {
   // Hent <h1> elementet
   const heading = document.getElementById("projectTitle");
@@ -108,6 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add click event to navigate to tasks
         taskButton.addEventListener("click", () => {
           localStorage.setItem("subProjectId", subproject.id);
+          localStorage.setItem("subProjectName", subproject.subProjectTitle);
+
           location.href = "task-list.html"; // Redirect to task list page
         });
 
