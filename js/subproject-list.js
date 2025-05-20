@@ -27,6 +27,19 @@ function loadProjectIntoForm(subproject) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Hent <h1> elementet
+  const heading = document.getElementById("projectTitle");
+
+  // Hent projektnavn fra localStorage
+  const projectName = localStorage.getItem("parentProjectName");
+
+  // Opdater teksten hvis navnet findes
+  if (projectName) {
+    heading.textContent = `All SubProjects for ${projectName}`;
+  } else {
+    heading.textContent = "All SubProjects";
+  }
+
   const subprojectListContainer = document.getElementById(
     "subproject-list-container"
   );
@@ -86,20 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
           location.href = "create-subproject.html"; // Redirect to edit subproject page
         });
 
-        /*
-        // Edit button
-        // Create edit button
-        const editButton = document.createElement("button");
-        editButton.textContent = "Edit";
-        editButton.className = "action-button";
-        editButton.title = "Edit Subproject";
-
-        // Add click event to edit the project
-        editButton.addEventListener("click", () => {
-          loadProjectIntoForm(subproject); // Load project data into the form
-        });
-        */
-
         // Create a button to access tasks
         const taskButton = document.createElement("button");
         taskButton.textContent = "View Tasks";
@@ -125,4 +124,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((error) => {
       console.error("Error fetching subprojects:", error);
     });
+
+  //til create subproject
+  document.getElementById("createNewSubprojectBtn").addEventListener("click", () => {
+    localStorage.removeItem("editSubproject"); // Slet editSubproject data
+    location.href = "create-subproject.html"; // Gå til opret siden
+  });
+
 });
